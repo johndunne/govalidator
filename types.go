@@ -153,6 +153,7 @@ var TagMap = map[string]Validator{
 	"ipv4":               IsIPv4,
 	"ipv6":               IsIPv6,
 	"dns":                IsDNSName,
+	"duration":           IsDuration,
 	"host":               IsHost,
 	"mac":                IsMAC,
 	"latitude":           IsLatitude,
