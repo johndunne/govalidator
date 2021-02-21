@@ -1151,6 +1151,12 @@ func IsRFC3339(str string) bool {
 	return IsTime(str, time.RFC3339)
 }
 
+// IsDuration checks if string is valid duration according to that laid out in ISO8601 and in relation to duration.
+func IsDuration(str string) bool {
+	_, e := ParseDuration(str)
+	return e == nil
+}
+
 // IsRFC3339WithoutZone checks if string is valid timestamp value according to RFC3339 which excludes the timezone.
 func IsRFC3339WithoutZone(str string) bool {
 	return IsTime(str, rfc3339WithoutZone)

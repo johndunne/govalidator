@@ -2131,6 +2131,44 @@ func TestIsTime(t *testing.T) {
 	}
 }
 
+func TestIsDuration(t *testing.T) {
+	t.Parallel()
+	var tests = []struct {
+		param    string
+		expected bool
+	}{
+		{"1Y2DT3H4M5S", false},
+		{"2D1YT3H4M5S", false},
+		{"P1Y2D3H4M5S", false},
+		{"P1Y2DT3H6S4M", false},
+		{"P1Y2DT3H4M5S", true},
+		{"T3H4M5S", true},
+		{"P1Y2D", true},
+		{"P1Y2DT3H4M", true},
+		{"P2YT3H4M5S", true},
+		{"PT3H4M5S", false},
+		{"T3H4M5S", true},
+		{"P1Y2D3H4M5S", false},
+		{"P1Y2DT", false},
+		{"P1Y2D", true},
+		/*{"P1Y2DT3H4M5S", true},
+		{"P1Y2DT3H4M5S", true},
+		{"P1Y2DT3H4M5S", false},
+		{"P1Y2DT3H4M5S", false},
+		{"P1Y2DT3H4M5S", false},
+		{"P1Y2DT3H4M5S", false},
+		{"P1Y2DT3H4M5S", false},
+		{"P1Y2DT3H4M5S", false},*/
+	}
+	for _, test := range tests {
+		actual := IsDuration(test.param)
+		if actual != test.expected {
+			dur, _ := ParseDuration(test.param)
+			t.Errorf("Expected IsDuration(%q) to be %v, got %v (%v)", test.param, test.expected, actual, dur)
+		}
+	}
+}
+
 func TestIsRFC3339(t *testing.T) {
 	t.Parallel()
 	var tests = []struct {
